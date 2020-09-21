@@ -1,3 +1,4 @@
+
 /* Rot13 ("rotate by 13 places") is a letter-substitution cipher that 
  * translates a String into a new String:
  * 
@@ -13,29 +14,25 @@
  * transformed by the rot13 cipher.
  */
 
-const asciiUpperCaseA = 65;
-const asciiUpperCaseZ = 90;
-const asciiLowerCaseA = 97;
-const asciiLowerCaseZ = 122;
+const UPPER_A_ASCII = 'A'.charCodeAt(0);
+const UPPER_Z_ASCII = 'Z'.charCodeAt(0);
+const LOWER_A_ASCII = 'a'.charCodeAt(0);
+const LOWER_Z_ASCII = 'z'.charCodeAt(0);
 
 function isUpperCaseChar(asciiCharacter) {
-  return asciiCharacter >= 65 && asciiCharacter <= 90;
+  return asciiCharacter >= UPPER_A_ASCII && asciiCharacter <= UPPER_Z_ASCII;
 }
 
 function isLowerCaseChar(asciiCharacter) {
-  return asciiCharacter >= 97 && asciiCharacter <= 122;
+  return asciiCharacter >= LOWER_A_ASCII && asciiCharacter <= LOWER_Z_ASCII;
 }
 
-function isUpperAndOverBound(asciiCharacter) {
-  return isUpperCaseChar(asciiCharacter) && asciiCharacter > 90;
+function isOverUpperBound(asciiCharacter) {
+  return asciiCharacter > UPPER_Z_ASCII;
 }
 
-function isUpperAndOverBound(asciiCharacter) {
-  return currentCharAscii > 90;
-}
-
-function isLowerAndOverBound(asciiCharacter) {
-  return currentCharAscii > 122;
+function isOverLowerBound(asciiCharacter) {
+  return asciiCharacter > LOWER_Z_ASCII;
 }
 
 function rot13(string) {
@@ -48,8 +45,8 @@ function rot13(string) {
       currentCharAscii += 13;
     }
     
-    if ((isUpperCase && isUpperAndOverBound(currentCharAscii)) ||
-        (isLowerCase && isLowerAndOverBound(currentCharAscii))) {
+    if ((isUpperCase && isOverUpperBound(currentCharAscii)) ||
+        (isLowerCase && isOverLowerBound(currentCharAscii))) {
       currentCharAscii -= 26;
     }
     result += String.fromCharCode(currentCharAscii);
